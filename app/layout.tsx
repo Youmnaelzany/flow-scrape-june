@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { AppProviders } from "@/components/providers/Appprovider";
+import { ClerkProvider } from "@clerk/nextjs";
+
+import { AppProviders } from "@/components/providers/Appproviders";
 
 import "./globals.css";
 
@@ -18,10 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AppProviders>{children}</AppProviders>
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl={"/sign-in"}>
+      <html lang="en">
+        <body className={inter.className}>
+          <AppProviders>{children}</AppProviders>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
